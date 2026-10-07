@@ -29,7 +29,7 @@
     font-size: 16px;
   }
 }
-
+@import "tailwindcss";
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
@@ -50,8 +50,11 @@
   }
 }
 
+
+
 body {
   margin: 0;
+  background-color: #f5f5f4; 
 }
 
 #root {
