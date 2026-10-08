@@ -80,7 +80,7 @@ const Hero = () => (
     {/* Background Image with Overlay */}
     <div 
       className="absolute inset-0 bg-cover bg-center z-0" 
-      style={{ backgroundImage: 'url("watermarked_img_9268706017794908122.jpg")' }}
+      style={{ backgroundImage: 'url("couple-hero.jpeg")' }}
     >
       <div className="absolute inset-0 bg-black/70 mix-blend-multiply"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-white"></div>
@@ -123,7 +123,7 @@ const Couple = () => (
         {/* Bride */}
         <div className="flex flex-col items-center text-center">
           <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden mb-8 border-4 border-[#F7E7CE] shadow-2xl">
-            <img src="WhatsApp Image 2026-09-29 at 13.41.37.jpeg" alt="Bride" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <img src="amos.jpeg" alt="Bride" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
           </div>
           <h3 className="text-3xl font-serif mb-2">Primrose T Kabiliyele</h3>
           <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">The Bride</p>
@@ -137,7 +137,7 @@ const Couple = () => (
         {/* Groom */}
         <div className="flex flex-col items-center text-center">
           <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden mb-8 border-4 border-[#F7E7CE] shadow-2xl">
-            <img src="WhatsApp Image 2026-09-28 at 15.51.33.jpeg" alt="Groom" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <img src="primrose.jpeg" alt="Groom" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
           </div>
           <h3 className="text-3xl font-serif mb-2">Amos T.K Muleya</h3>
           <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">The Groom</p>
