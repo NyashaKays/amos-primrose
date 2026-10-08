@@ -123,7 +123,7 @@ const Couple = () => (
         {/* Bride */}
         <div className="flex flex-col items-center text-center">
           <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden mb-8 border-4 border-[#F7E7CE] shadow-2xl">
-            <img src="amos.jpeg" alt="Bride" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <img src="primrose.jpeg" alt="Bride" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
           </div>
           <h3 className="text-3xl font-serif mb-2">Primrose T Kabiliyele</h3>
           <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">The Bride</p>
@@ -137,7 +137,7 @@ const Couple = () => (
         {/* Groom */}
         <div className="flex flex-col items-center text-center">
           <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden mb-8 border-4 border-[#F7E7CE] shadow-2xl">
-            <img src="primrose.jpeg" alt="Groom" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <img src="amos.jpeg" alt="Groom" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
           </div>
           <h3 className="text-3xl font-serif mb-2">Amos T.K Muleya</h3>
           <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">The Groom</p>
