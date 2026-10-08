@@ -223,29 +223,32 @@ const DressCode = () => {
   ];
 
   return (
-    <section className="py-24 px-6 bg-black text-white text-center">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-serif mb-6">Dress Code</h2>
-        <p className="uppercase tracking-widest text-sm text-[#F7E7CE] mb-12">Elegant Formal / Black Tie Optional</p>
-        
-        <p className="max-w-2xl mx-auto text-gray-300 mb-12 leading-relaxed font-light">
-          We kindly request our guests to dress in our wedding palette of Black, White, and Champagne to help us create a beautifully cohesive atmosphere. 
-          Ladies are encouraged to wear floor-length dresses or elegant formal suits, and gentlemen are requested to wear formal dark suits or tuxedos.
-        </p>
+    <section className="bg-black text-white py-20 px-6 w-full flex flex-col items-center">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+          <h2 className="font-serif text-3xl md:text-4xl mb-2">Dress Code</h2>
+          <p className="text-[#F7E7CE] tracking-[0.2em] uppercase text-xs md:text-sm mb-6">
+            Elegant Formal / Black Tie Optional
+          </p>
+          <p className="text-gray-300 text-sm md:text-base mb-12 leading-relaxed max-w-2xl">
+            We kindly request our guests to dress in our wedding palette of Black, White, and Champagne to help us create a beautifully cohesive atmosphere. Ladies are encouraged to wear floor-length dresses or elegant formal suits, and gentlemen are requested to wear formal dark suits or tuxedos.
+          </p>
 
-        <div className="flex flex-wrap justify-center gap-6 md:gap-16">
-          {colors.map((color, idx) => (
-            <div key={idx} className="flex flex-col items-center">
-              <div 
-                className="w-16 h-16 md:w-24 md:h-24 rounded-full shadow-2xl border border-gray-700 mb-4 transition-transform hover:scale-110 duration-300"
-                style={{ backgroundColor: color.hex }}
-              ></div>
-              <span className="text-xs uppercase tracking-widest text-gray-400">{color.name}</span>
+          <div className="flex flex-row flex-wrap justify-center gap-10 md:gap-16">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#0a0a0a] border border-gray-800 shadow-lg"></div>
+              <span className="text-xs uppercase tracking-widest text-gray-400">Black</span>
             </div>
-          ))}
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-lg"></div>
+              <span className="text-xs uppercase tracking-widest text-gray-400">White</span>
+            </div>
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#F7E7CE] shadow-lg"></div>
+              <span className="text-xs uppercase tracking-widest text-gray-400">Champagne</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 };
 
