@@ -180,12 +180,12 @@ const CountdownSection = () => {
 
 const WeddingProgram = () => {
   const events = [
-    { time: '08:30', title: 'Welcome & Seating', icon: <MapPin className="w-5 h-5" /> },
-    { time: '09:00', title: 'The Ceremony', icon: <Heart className="w-5 h-5" /> },
-    { time: '10:30', title: 'Cocktails & Photos', icon: <Camera className="w-5 h-5" /> },
-    { time: '12:00', title: 'Grand Entrance', icon: <Music className="w-5 h-5" /> },
-    { time: '12:30', title: 'Reception Meal', icon: <Utensils className="w-5 h-5" /> },
-    { time: '14:00', title: 'Toasts & Speeches', icon: <GlassWater className="w-5 h-5" /> },
+    { time: '09:00', title: 'Welcome & Seating', icon: <MapPin className="w-5 h-5" /> },
+    { time: '09:30', title: 'The Grand Entrance', icon: <Heart className="w-5 h-5" /> },
+    { time: '10:00', title: 'The Ceremony', icon: <Camera className="w-5 h-5" /> },
+    { time: '12:00', title: 'Cocktails & Photos', icon: <Music className="w-5 h-5" /> },
+    { time: '13:00', title: 'Reception Meal', icon: <Utensils className="w-5 h-5" /> },
+    { time: '14:30', title: 'Toasts & Speeches', icon: <GlassWater className="w-5 h-5" /> },
     { time: '15:00', title: 'First Dance & Party', icon: <Music className="w-5 h-5" /> },
   ];
 
