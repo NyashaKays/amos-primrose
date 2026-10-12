@@ -303,9 +303,9 @@ const NotesAndRSVP = () => (
       <div className="bg-black p-8 md:p-12 text-center rounded-sm flex flex-col justify-center border border-[#F7E7CE] shadow-2xl">
         <h2 className="text-4xl font-serif mb-6 text-white">RSVP</h2>
         <p className="text-gray-300 mb-10 font-light">Kindly respond by November 15, 2026</p>
-        <button className="bg-[#F7E7CE] text-black py-4 px-8 uppercase tracking-widest text-sm hover:bg-white transition-colors w-full md:w-auto mx-auto font-bold shadow-lg">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSds3CNUiue4qLBUL2e3Pkti4VxYFdL_QZCIzIyKSaSPOIphOg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" className="bg-[#F7E7CE] text-black py-4 px-8 uppercase tracking-widest text-sm hover:bg-white transition-colors w-full md:w-auto mx-auto font-bold shadow-lg">
           Click Here to RSVP
-        </button>
+        </a>
         <p className="mt-6 text-xs text-gray-400 uppercase tracking-wider">Via Google Forms</p>
       </div>
     </div>
