@@ -272,7 +272,7 @@ const NotesAndRSVP = () => (
             <Clock className="w-6 h-6 text-[#d8c5a7] shrink-0 mt-1" />
             <div>
               <h4 className="text-lg font-serif mb-1 text-black font-semibold">Arrival Time</h4>
-              <p className="text-sm text-gray-600 leading-relaxed font-light">The ceremony begins promptly at 9:00 AM. We kindly request all guests to arrive and be seated by 8:30 AM.</p>
+              <p className="text-sm text-gray-600 leading-relaxed font-light">The ceremony begins promptly at 9:30 AM. We kindly request all guests to arrive and be seated by 9:00 AM.</p>
             </div>
           </div>
           <div className="flex gap-4 items-start">
