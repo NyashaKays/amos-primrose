@@ -275,6 +275,7 @@ const NotesAndRSVP = () => (
               <p className="text-sm text-gray-600 leading-relaxed font-light">The ceremony begins promptly at 9:30 AM. We kindly request all guests to arrive and be seated by 9:00 AM.</p>
             </div>
           </div>
+          {/*
           <div className="flex gap-4 items-start">
             <Info className="w-6 h-6 text-[#d8c5a7] shrink-0 mt-1" />
             <div>
@@ -282,6 +283,7 @@ const NotesAndRSVP = () => (
               <p className="text-sm text-gray-600 leading-relaxed font-light">We are excited to celebrate with your whole family, little ones included! Please let us know if you need any special accommodations for them when you RSVP.</p>
             </div>
           </div>
+          */}
           <div className="flex gap-4 items-start">
             <CheckCircle className="w-6 h-6 text-[#d8c5a7] shrink-0 mt-1" />
             <div>
