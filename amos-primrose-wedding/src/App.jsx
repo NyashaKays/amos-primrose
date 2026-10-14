@@ -295,6 +295,39 @@ export default function App() {
           <p className="text-gray-500 tracking-[0.2em] uppercase text-xs mt-6">Via Google Forms</p>
         </div>
       </section>
+
+
+      {/* Location Map Section */}
+      <section className="py-24 px-6 max-w-5xl mx-auto border-t border-gray-100 flex flex-col items-center text-center">
+        <div className="mb-12 flex flex-col items-center w-full">
+          <p className="text-gray-500 tracking-[0.2em] uppercase text-sm mb-4">Getting There</p>
+          <h2 className="font-serif text-4xl">The <span className="italic text-gray-500">Venue</span></h2>
+          <p className="mt-4 text-gray-600 max-w-xl text-sm leading-relaxed text-center">
+            Eagles Training Center, Vumba, Zimbabwe. Follow our custom map below, or click the button for live GPS directions.
+          </p>
+        </div>
+
+        <div className="w-full flex flex-col items-center">
+          {/* Illustrated Map Image */}
+          <div className="w-full max-w-2xl mx-auto border-8 border-gray-50 shadow-md mb-10">
+            <img 
+              src="/map-illustration.jpeg" 
+              alt="Illustrated Map to Eagles Training Center" 
+              className="w-full h-auto object-contain mx-auto"
+            />
+          </div>
+          
+          {/* Google Maps Button */}
+          <a 
+            href="https://maps.app.goo.gl/EakXGpPLoQfjF5pr9" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="bg-black text-white border border-black px-10 py-4 uppercase tracking-[0.15em] text-xs font-bold hover:bg-[#F7E7CE] hover:text-black hover:border-[#F7E7CE] transition-all duration-300 text-center w-full md:w-auto"
+          >
+            Open in Google Maps
+          </a>
+        </div>
+      </section>
     </div>
   );
 }
