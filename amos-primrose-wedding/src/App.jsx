@@ -74,7 +74,7 @@ export default function App() {
       <section className="relative h-screen flex flex-col justify-between overflow-hidden pt-12">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/public/couple-hero.jpeg" 
+            src="/couple-hero.jpeg" 
             alt="Amos and Primrose" 
             className="w-full h-full object-cover object-top"
           />
@@ -141,7 +141,7 @@ export default function App() {
           <div className="flex flex-col items-center text-center group">
             <div className="w-64 h-80 overflow-hidden mb-6 rounded-t-full border-4 border-[#F7E7CE]/30">
               <img 
-                src="/public/amos.jpeg" 
+                src="/amos.jpeg" 
                 alt="Amos" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -158,7 +158,7 @@ export default function App() {
           <div className="flex flex-col items-center text-center group mt-12 md:mt-24">
             <div className="w-64 h-80 overflow-hidden mb-6 rounded-t-full border-4 border-[#F7E7CE]/30">
               <img 
-                src="/public/primrose.jpeg" 
+                src="/primrose.jpeg" 
                 alt="Primrose" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
