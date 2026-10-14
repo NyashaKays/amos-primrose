@@ -1,228 +1,228 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, MapPin, Calendar, Clock, Info, CheckCircle, MailOpen, Music, Camera, Utensils, GlassWater } from 'lucide-react';
+import { Heart, Calendar, MapPin, Clock, ChevronDown, Camera, GlassWater, Music } from 'lucide-react';
 
-const CustomStyles = () => (
-  <style>{`
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    .animate-marquee {
-      display: inline-block;
-      white-space: nowrap;
-      animation: marquee 25s linear infinite;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    .fade-in-section {
-      animation: fadeIn 1.5s ease-in-out forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  `}</style>
-);
-
-const useCountdown = (targetDate) => {
-  const calculateTimeLeft = () => {
-    const difference = +new Date(targetDate) - +new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
-      };
-    } else {
-      timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    }
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+export default function App() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+    // Target date: 19 December 2026, 09:00:00
+    const targetDate = new Date('2026-12-19T09:00:00').getTime();
+    
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance > 0) {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      } else {
+        clearInterval(interval);
+      }
     }, 1000);
-    return () => clearInterval(timer);
-  }, [targetDate]);
 
-  return timeLeft;
-};
+    return () => clearInterval(interval);
+  }, []);
 
-const EnvelopeIntro = ({ isOpened, onOpen }) => {
-  if (isOpened) return null;
+  // Helper function for smooth scrolling
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  if (!isOpen) {
+    return (
+      <div 
+        className="fixed inset-0 bg-black flex flex-col items-center justify-center text-white z-50 cursor-pointer transition-opacity duration-1000"
+        onClick={() => setIsOpen(true)}
+      >
+        <div className="animate-pulse flex flex-col items-center gap-6">
+          <div className="w-20 h-20 bg-[#F7E7CE] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(247,231,206,0.3)]">
+            <Heart className="w-10 h-10 text-black fill-black" />
+          </div>
+          <p className="text-xl font-serif tracking-[0.3em] text-[#F7E7CE] uppercase mt-4">Tap the seal to open</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-black transition-opacity duration-1000 ${isOpened ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-      <div className="text-center text-white p-8 max-w-md animate-pulse">
-        <MailOpen className="w-16 h-16 mx-auto mb-6 text-[#F7E7CE]" strokeWidth={1} />
-        <h1 className="text-3xl md:text-5xl font-serif mb-4 tracking-wider">P & A</h1>
-        <p className="uppercase tracking-widest text-sm text-[#F7E7CE] mb-12">You are invited</p>
-        <button 
-          onClick={onOpen}
-          className="px-8 py-3 border border-[#F7E7CE] text-[#F7E7CE] hover:bg-[#F7E7CE] hover:text-black transition-all duration-300 uppercase tracking-widest text-sm rounded-sm font-medium"
+    <div className="absolute top-0 left-0 w-full min-h-screen bg-white text-black font-sans selection:bg-[#F7E7CE] selection:text-black overflow-x-hidden">
+      <style>
+        {`
+          @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            animation: marquee 25s linear infinite;
+          }
+        `}
+      </style>
+
+      {/* Sticky Navigation Bar */}
+      <nav className="fixed top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm py-3 px-4 flex justify-center gap-6 md:gap-12 text-xs md:text-sm tracking-widest uppercase font-semibold">
+        <button onClick={() => scrollToSection('couple')} className="text-black hover:text-[#C291A4] transition-colors">Details</button>
+        <button onClick={() => scrollToSection('program')} className="text-black hover:text-[#C291A4] transition-colors">Program</button>
+        <button onClick={() => scrollToSection('rsvp')} className="text-[#B76E79] hover:text-black transition-colors">RSVP</button>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative h-screen flex flex-col justify-between overflow-hidden pt-12">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/public/couple-hero.jpeg" 
+            alt="Amos and Primrose" 
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/80"></div>
+        </div>
+
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 mt-10">
+          <p className="text-[#F7E7CE] tracking-[0.2em] uppercase text-sm mb-6 drop-shadow-md">Together with their families</p>
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-white mb-4 drop-shadow-lg">
+            Amos <span className="text-[#F7E7CE] italic">&amp;</span> Primrose
+          </h1>
+          <p className="text-white/90 tracking-[0.3em] uppercase text-sm md:text-base mt-4 drop-shadow-md">Are Getting Married</p>
+          
+          <div className="mt-12 flex flex-col items-center gap-4 text-white drop-shadow-md">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-[#F7E7CE]" />
+              <span className="tracking-widest uppercase">19 · 12 · 2026</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-[#F7E7CE]" />
+              <span className="tracking-widest uppercase">Eagles Training Center, Vumba</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bouncing Scroll Indicator */}
+        <div 
+          className="relative z-10 flex flex-col items-center gap-2 pb-12 cursor-pointer animate-bounce"
+          onClick={() => scrollToSection('couple')}
         >
-          Tap the seal to open
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const Hero = () => (
-  <header className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-    {/* Background Image with Overlay */}
-    <div 
-      className="absolute inset-0 bg-cover bg-center z-0" 
-      style={{ backgroundImage: 'url("couple-hero.jpeg")' }}
-    >
-      <div className="absolute inset-0 bg-black/70 mix-blend-multiply"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-white"></div>
-    </div>
-
-    {/* Content */}
-    <div className="relative z-10 text-center px-4 text-white flex flex-col items-center mt-20">
-      <p className="uppercase tracking-[0.3em] text-sm md:text-base mb-6 text-[#F7E7CE] font-light">Together with their families</p>
-      <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif mb-4 tracking-tight drop-shadow-lg">
-        Primrose
-        <span className="block text-4xl md:text-6xl my-4 italic text-[#F7E7CE] font-light">&</span>
-        Amos
-      </h1>
-      <p className="text-xl md:text-2xl tracking-widest mt-8 font-light drop-shadow-md">DECEMBER 19, 2026</p>
-      <p className="uppercase tracking-widest text-xs mt-4 text-gray-300">Eagles Training Center, Vhumba</p>
-    </div>
-
-    {/* Scrolling Marquee */}
-    <div className="absolute bottom-0 w-full overflow-hidden bg-[#F7E7CE] text-black py-3 border-t border-[#d8c5a7] z-20">
-      <div className="animate-marquee font-serif italic text-lg tracking-wider font-semibold">
-        <span className="mx-8">Join us for our special day</span> • 
-        <span className="mx-8">December 19, 2026 at 09:00 hrs</span> • 
-        <span className="mx-8">Eagles Training Center, Vhumba</span> • 
-        <span className="mx-8">Black, White & Champagne</span> • 
-        <span className="mx-8">Primrose & Amos</span> •
-      </div>
-    </div>
-  </header>
-);
-
-const Couple = () => (
-  <section className="py-24 px-6 bg-white text-black">
-    <div className="max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl font-serif mb-4">The Couple</h2>
-        <div className="w-16 h-px bg-[#F7E7CE] mx-auto"></div>
-      </div>
-      
-      <div className="grid md:grid-cols-2 gap-16 items-start">
-        {/* Bride */}
-        <div className="flex flex-col items-center text-center">
-          <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden mb-8 border-4 border-[#F7E7CE] shadow-2xl">
-            <img src="primrose.jpeg" alt="Bride" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
-          </div>
-          <h3 className="text-3xl font-serif mb-2">Primrose T Kabiliyele</h3>
-          <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">The Bride</p>
-          <div className="text-gray-700 max-w-md leading-relaxed font-light italic bg-gray-50 p-6 rounded-sm border border-gray-200 shadow-sm">
-            <Heart className="w-5 h-5 text-[#F7E7CE] mx-auto mb-3" fill="currentColor" />
-            "Haven't you read," he replied, "that at the beginning the Creator 'made them male and female,' and said, 'For this reason a man will leave his father and mother and be united to his wife, and the two will become one flesh'? So they are no longer two, but one flesh. Therefore what God has joined together, let no one separate."
-            <span className="block mt-4 font-serif font-medium not-italic text-sm text-black uppercase tracking-wider">— Matthew 19:5-6</span>
-          </div>
+          <span className="text-white text-xs tracking-widest uppercase drop-shadow-md">Scroll to explore</span>
+          <ChevronDown className="text-white w-6 h-6 drop-shadow-md" />
         </div>
 
-        {/* Groom */}
-        <div className="flex flex-col items-center text-center">
-          <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden mb-8 border-4 border-[#F7E7CE] shadow-2xl">
-            <img src="amos.jpeg" alt="Groom" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
-          </div>
-          <h3 className="text-3xl font-serif mb-2">Amos T.K Muleya</h3>
-          <p className="text-sm uppercase tracking-widest text-gray-500 mb-6">The Groom</p>
-          <div className="text-gray-700 max-w-md leading-relaxed font-light italic bg-gray-50 p-6 rounded-sm border border-gray-200 shadow-sm">
-            <Heart className="w-5 h-5 text-[#F7E7CE] mx-auto mb-3" fill="currentColor" />
-            "Place me like a seal over your heart, like a seal on your arm; for love is as strong as death, its jealousy unyielding as the grave. It burns like blazing fire, like a mighty flame. Many waters cannot quench love; rivers cannot sweep it away."
-            <span className="block mt-4 font-serif font-medium not-italic text-sm text-black uppercase tracking-wider">— Song of Solomon 8:6-7</span>
+        {/* Marquee Ticker */}
+        <div className="relative z-10 bg-black border-t border-white/20 py-3 overflow-hidden flex whitespace-nowrap">
+          <div className="animate-marquee flex gap-12 text-[#F7E7CE] text-sm tracking-widest uppercase">
+            {[...Array(6)].map((_, i) => (
+              <span key={i} className="flex items-center gap-12">
+                <span>Amos &amp; Primrose</span>
+                <span>✦</span>
+                <span>19 · 12 · 2026</span>
+                <span>✦</span>
+                <span>09:00 HRS</span>
+                <span>✦</span>
+                <span>Eagles Training Center, Vumba</span>
+                <span>✦</span>
+              </span>
+            ))}
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-);
+      </section>
 
-const CountdownSection = () => {
-  const timeLeft = useCountdown('2026-12-19T09:00:00');
+      {/* Love Story & Profiles Section */}
+      <section id="couple" className="py-24 px-6 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <p className="text-gray-500 tracking-[0.2em] uppercase text-sm mb-4">Two Hearts</p>
+          <h2 className="font-serif text-4xl md:text-5xl">The <span className="italic text-gray-500">Couple</span></h2>
+          <div className="w-px h-16 bg-black mx-auto mt-8"></div>
+        </div>
 
-  return (
-    <section className="py-20 bg-black text-white text-center px-4 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-      <div className="max-w-4xl mx-auto relative z-10">
-        <h2 className="text-3xl font-serif mb-12 tracking-wide text-[#F7E7CE]">The Countdown Begins</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-16 md:gap-8 items-start">
+          {/* Groom */}
+          <div className="flex flex-col items-center text-center group">
+            <div className="w-64 h-80 overflow-hidden mb-6 rounded-t-full border-4 border-[#F7E7CE]/30">
+              <img 
+                src="/public/amos.jpeg" 
+                alt="Amos" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <p className="uppercase tracking-[0.2em] text-sm text-gray-500 mb-2">The Groom</p>
+            <h3 className="font-serif text-2xl mb-4">Amos T.K Muleya</h3>
+            <div className="max-w-xs px-6 py-4 bg-gray-50 italic text-gray-600 text-sm border-l-2 border-black">
+              "Set me as a seal upon your heart, as a seal upon your arm; for love is strong as death, passion fierce as the grave."
+              <br/><span className="block mt-2 font-semibold not-italic text-black">— Song of Solomon 8:6-7</span>
+            </div>
+          </div>
+
+          {/* Bride */}
+          <div className="flex flex-col items-center text-center group mt-12 md:mt-24">
+            <div className="w-64 h-80 overflow-hidden mb-6 rounded-t-full border-4 border-[#F7E7CE]/30">
+              <img 
+                src="/public/primrose.jpeg" 
+                alt="Primrose" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <p className="uppercase tracking-[0.2em] text-sm text-gray-500 mb-2">The Bride</p>
+            <h3 className="font-serif text-2xl mb-4">Primrose T Kabiliyele</h3>
+            <div className="max-w-xs px-6 py-4 bg-gray-50 italic text-gray-600 text-sm border-l-2 border-[#F7E7CE]">
+              "For this reason a man will leave his father and mother and be united to his wife, and the two will become one flesh. So they are no longer two, but one flesh."
+              <br/><span className="block mt-2 font-semibold not-italic text-black">— Matthew 19:5-6</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Countdown Section */}
+      <section className="bg-black text-white py-24 px-6 text-center">
+        <p className="text-[#F7E7CE] tracking-[0.2em] uppercase text-sm mb-4">The Countdown</p>
+        <h2 className="font-serif text-4xl mb-12">Counting down to "I do"</h2>
+        <div className="flex justify-center gap-4 md:gap-12 max-w-3xl mx-auto">
           {[
             { label: 'Days', value: timeLeft.days },
             { label: 'Hours', value: timeLeft.hours },
-            { label: 'Minutes', value: timeLeft.minutes },
-            { label: 'Seconds', value: timeLeft.seconds },
-          ].map((item, idx) => (
-            <div key={idx} className="flex flex-col items-center">
-              <div className="text-5xl md:text-7xl font-serif font-light mb-4">{item.value || '00'}</div>
-              <div className="uppercase tracking-[0.2em] text-xs text-[#F7E7CE]">{item.label}</div>
+            { label: 'Mins', value: timeLeft.minutes },
+            { label: 'Secs', value: timeLeft.seconds }
+          ].map((unit, index) => (
+            <div key={index} className="flex flex-col items-center w-20 md:w-32">
+              <div className="text-4xl md:text-6xl font-serif text-[#F7E7CE] mb-2">{unit.value}</div>
+              <div className="text-xs md:text-sm tracking-[0.2em] uppercase text-white/60">{unit.label}</div>
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-};
+      </section>
 
-const WeddingProgram = () => {
-  const events = [
-    { time: '09:00', title: 'Welcome & Seating', icon: <MapPin className="w-5 h-5" /> },
-    { time: '09:30', title: 'The Grand Entrance', icon: <Heart className="w-5 h-5" /> },
-    { time: '10:00', title: 'The Ceremony', icon: <Camera className="w-5 h-5" /> },
-    { time: '12:00', title: 'Cocktails & Photos', icon: <Music className="w-5 h-5" /> },
-    { time: '13:00', title: 'Reception Meal', icon: <Utensils className="w-5 h-5" /> },
-    { time: '14:30', title: 'Toasts & Speeches', icon: <GlassWater className="w-5 h-5" /> },
-    { time: '15:00', title: 'First Dance & Party', icon: <Music className="w-5 h-5" /> },
-  ];
-
-  return (
-    <section className="py-24 px-6 bg-white text-black">
-      <div className="max-w-3xl mx-auto">
+      {/* Wedding Program */}
+      
+      <section id="program" className="py-24 px-6 max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-serif mb-4">Wedding Program</h2>
-          <p className="uppercase tracking-widest text-xs text-gray-500">Order of Events</p>
+          <p className="text-gray-500 tracking-[0.2em] uppercase text-sm mb-4">Program</p>
+          <h2 className="font-serif text-4xl">Our Wedding <span className="italic text-gray-500">Day</span></h2>
         </div>
 
-        <div className="relative border-l border-[#F7E7CE] ml-4 md:ml-0">
-          {events.map((event, idx) => (
-            <div key={idx} className="mb-10 ml-8 md:ml-12 relative flex items-center group">
-              <span className="absolute -left-[41px] md:-left-[57px] flex items-center justify-center w-10 h-10 rounded-full bg-[#F7E7CE] border border-[#d8c5a7] text-black shadow-sm group-hover:bg-black group-hover:text-[#F7E7CE] transition-colors duration-300">
-                {event.icon}
-              </span>
-              <div className="bg-gray-50 p-6 rounded-sm w-full border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <span className="text-sm font-bold tracking-wider text-[#d8c5a7] block mb-1">{event.time}</span>
-                <h3 className="text-xl font-serif text-black">{event.title}</h3>
+        <div className="relative border-l border-black/20 ml-4 md:ml-1/2">
+          {[
+            { time: "08:00", title: "Arrival & Seating", desc: "Please arrive and find your seats so we can begin promptly.", icon: Clock },
+            { time: "09:30", title: "The Ceremony", desc: "Where two hearts become one.", icon: Heart },
+            { time: "12:00", title: "Photos & Cocktails", desc: "Mingle and enjoy refreshments while we capture memories.", icon: Camera },
+            { time: "13:00", title: "Reception", desc: "Let the celebrations begin with a delicious meal and speeches.", icon: GlassWater },
+            { time: "15:00", title: "Dancing", desc: "Join us on the dancefloor to celebrate our new beginning.", icon: Music }
+          ].map((event, index) => (
+            <div key={index} className="mb-12 ml-8 relative">
+              <div className="absolute -left-[49px] bg-white p-1 rounded-full border border-black">
+                <event.icon className="w-5 h-5 text-black" />
+              </div>
+              <div className="bg-gray-50 p-6 rounded-none border-t border-[#F7E7CE] hover:shadow-lg transition-shadow">
+                <span className="text-[#F7E7CE] font-serif font-bold text-lg mb-1 block">{event.time}</span>
+                <h3 className="font-serif text-xl mb-2">{event.title}</h3>
+                <p className="text-gray-600 text-sm">{event.desc}</p>
               </div>
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-};
+      </section>
 
-const DressCode = () => {
-  const colors = [
-    { name: 'Black', hex: '#000000' },
-    { name: 'White', hex: '#FFFFFF' },
-    { name: 'Champagne', hex: '#F7E7CE' },
-  ];
-
-  return (
+      {/* Dress Code Section */}
       <section className="bg-black text-white py-20 px-6 w-full flex flex-col items-center">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
           <h2 className="font-serif text-3xl md:text-4xl mb-2">Dress Code</h2>
@@ -257,95 +257,44 @@ const DressCode = () => {
           </div>
         </div>
       </section>
-  );
-};
 
-const NotesAndRSVP = () => (
-  <section className="py-24 px-6 bg-white text-black">
-    <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
-      
       {/* Important Notes */}
-      <div>
-        <h2 className="text-3xl font-serif mb-8 text-black border-b border-[#F7E7CE] pb-4 inline-block">Important Details</h2>
-        <div className="space-y-8 mt-4">
-          <div className="flex gap-4 items-start">
-            <Clock className="w-6 h-6 text-[#d8c5a7] shrink-0 mt-1" />
-            <div>
-              <h4 className="text-lg font-serif mb-1 text-black font-semibold">Arrival Time</h4>
-              <p className="text-sm text-gray-600 leading-relaxed font-light">The ceremony begins promptly at 9:30 AM. We kindly request all guests to arrive and be seated by 9:00 AM.</p>
-            </div>
+      <section className="py-24 px-6 max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <p className="text-gray-500 tracking-[0.2em] uppercase text-sm mb-4">Please Note</p>
+          <h2 className="font-serif text-4xl">A Gentle <span className="italic text-gray-500">Word</span></h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="p-8 border border-gray-100 bg-white shadow-sm hover:border-[#F7E7CE] transition-colors">
+            <h3 className="font-serif text-xl mb-3 border-b border-[#F7E7CE] pb-2 inline-block">Be Seated by 8:30 AM</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">The ceremony will begin promptly at 9:00 AM. Please arrive early to settle in so we can share this beautiful moment together without interruption.</p>
           </div>
-          {/*
-          <div className="flex gap-4 items-start">
-            <Info className="w-6 h-6 text-[#d8c5a7] shrink-0 mt-1" />
-            <div>
-              <h4 className="text-lg font-serif mb-1 text-black font-semibold">Children Welcome</h4>
-              <p className="text-sm text-gray-600 leading-relaxed font-light">We are excited to celebrate with your whole family, little ones included! Please let us know if you need any special accommodations for them when you RSVP.</p>
-            </div>
-          </div>
-          */}
-          <div className="flex gap-4 items-start">
-            <CheckCircle className="w-6 h-6 text-[#d8c5a7] shrink-0 mt-1" />
-            <div>
-              <h4 className="text-lg font-serif mb-1 text-black font-semibold">Plus Ones & Seating</h4>
-              <p className="text-sm text-gray-600 leading-relaxed font-light">Due to venue constraints, we can only accommodate guests formally named on the invitation. Seating is strictly assigned.</p>
-            </div>
-          </div>
-          <div className="flex gap-4 items-start">
-            <Heart className="w-6 h-6 text-[#d8c5a7] shrink-0 mt-1" />
-            <div>
-              <h4 className="text-lg font-serif mb-1 text-black font-semibold">Gifts</h4>
-              <p className="text-sm text-gray-600 leading-relaxed font-light">Your presence is the greatest gift. Should you wish to bless us with a gift, a monetary contribution towards our future together would be deeply appreciated.</p>
-            </div>
+          <div className="p-8 border border-gray-100 bg-white shadow-sm hover:border-[#F7E7CE] transition-colors">
+            <h3 className="font-serif text-xl mb-3 border-b border-[#F7E7CE] pb-2 inline-block">On Gifts</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">Your presence is the greatest gift. If you wish to bless us further, a contribution toward our new future together would be deeply appreciated.</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* RSVP */}
-      <div className="bg-black p-8 md:p-12 text-center rounded-sm flex flex-col justify-center border border-[#F7E7CE] shadow-2xl">
-        <h2 className="text-4xl font-serif mb-6 text-white">RSVP</h2>
-        <p className="text-gray-300 mb-10 font-light">Kindly respond by November 15, 2026</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSds3CNUiue4qLBUL2e3Pkti4VxYFdL_QZCIzIyKSaSPOIphOg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" className="bg-[#F7E7CE] text-black py-4 px-8 uppercase tracking-widest text-sm hover:bg-white transition-colors w-full md:w-auto mx-auto font-bold shadow-lg">
-          Click Here to RSVP
-        </a>
-        <p className="mt-6 text-xs text-gray-400 uppercase tracking-wider">Via Google Forms</p>
-      </div>
-    </div>
-  </section>
-);
-
-export default function WeddingApp() {
-  const [isOpened, setIsOpened] = useState(false);
-
-  // Prevent scrolling when envelope is closed
-  useEffect(() => {
-    if (!isOpened) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpened]);
-
-  return (
-    <div className="font-sans antialiased text-black bg-white selection:bg-[#F7E7CE] selection:text-black">
-      <CustomStyles />
-      <EnvelopeIntro isOpened={isOpened} onOpen={() => setIsOpened(true)} />
-      
-      <main className={`transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-0 h-screen overflow-hidden'}`}>
-        <Hero />
-        <Couple />
-        <CountdownSection />
-        <WeddingProgram />
-        <DressCode />
-        <NotesAndRSVP />
-        
-        <footer className="py-8 text-center bg-black text-[#F7E7CE] text-xs uppercase tracking-widest border-t border-gray-900">
-          <p>&copy; 2026 Primrose & Amos. All rights reserved.</p>
-        </footer>
-      </main>
+      {/* RSVP Section */}
+      <section id="rsvp" className="bg-black text-white py-24 px-6 w-full flex flex-col items-center justify-center border-t border-white/10">
+        <div className="max-w-md mx-auto text-center flex flex-col items-center w-full">
+          <h2 className="font-serif text-4xl mb-4">RSVP</h2>
+          <p className="text-gray-300 mb-8 text-lg">Kindly respond by November 15, 2026</p>
+          
+          <a 
+            href="YOUR_GOOGLE_FORM_LINK_HERE"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#F7E7CE] text-black px-10 py-5 uppercase tracking-[0.15em] text-sm font-bold hover:bg-white transition-colors duration-300 w-full md:w-auto inline-block text-center"
+          >
+            Click Here To RSVP
+          </a>
+          
+          <p className="text-gray-500 tracking-[0.2em] uppercase text-xs mt-6">Via Google Forms</p>
+        </div>
+      </section>
     </div>
   );
 }
